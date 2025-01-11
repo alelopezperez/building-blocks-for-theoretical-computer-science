@@ -5,5 +5,5 @@ and key concepts of theoritical computer science. This repo contains mini projec
 ## Chapter 1: Math Review Skipped
 
 ## Chapter 2: Logic
-- Thruth table generator and logical expression evaluator 
+- Truth table generator and logical expression evaluator 
 

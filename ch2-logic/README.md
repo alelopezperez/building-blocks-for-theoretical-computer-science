@@ -8,3 +8,9 @@ The logic evaluator will generate truth table for a given expression, tautology 
 - Material Implication: `->`
 - Converse Implication: `<-`
 - Biconditional(if and only if): `<->`
+
+## Grammar
+expr := binary
+binary := unary (["^"|"v"] unary)*
+unary := "-" expr | prposition
+proposition := ("a".."u"|"w".."z")* 
