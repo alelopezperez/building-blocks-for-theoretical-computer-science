@@ -1,4 +1,4 @@
-use std::{ascii::AsciiExt, str::Chars};
+use std::str::Chars;
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum TokenKind {
@@ -14,6 +14,7 @@ pub enum TokenKind {
 }
 #[derive(Debug, Clone)]
 pub struct Token {
+    pub lexeme: String,
     pub kind: TokenKind,
 }
 
@@ -40,20 +41,25 @@ impl<'a> Iterator for Lexer<'a> {
         match self.source.next() {
             Some(c) => match c {
                 '-' => Some(Token {
+                    lexeme: '-'.to_string(),
                     kind: TokenKind::Not,
                 }),
                 '^' => Some(Token {
+                    lexeme: '^'.to_string(),
                     kind: TokenKind::And,
                 }),
                 'v' => Some(Token {
+                    lexeme: 'v'.to_string(),
                     kind: TokenKind::Or,
                 }),
 
                 c if c.is_ascii() => Some(Token {
+                    lexeme: c.to_string(),
                     kind: TokenKind::Proposition,
                 }),
 
                 _ => Some(Token {
+                    lexeme: "".to_string(),
                     kind: TokenKind::Invalid,
                 }),
             },

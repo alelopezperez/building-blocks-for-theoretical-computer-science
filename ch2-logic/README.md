@@ -12,5 +12,5 @@ The logic evaluator will generate truth table for a given expression, tautology 
 ## Grammar
 expr := binary
 binary := unary (["^"|"v"] unary)*
-unary := "-" expr | prposition
+unary := "-" unary | proposition
 proposition := ("a".."u"|"w".."z")* 
