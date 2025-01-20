@@ -53,6 +53,11 @@ impl<'a> Iterator for Lexer<'a> {
                     kind: TokenKind::Or,
                 }),
 
+                '(' => Some(Token {
+                    lexeme: 'v'.to_string(),
+                    kind: TokenKind::OParen,
+                }),
+
                 c if c.is_ascii() => Some(Token {
                     lexeme: c.to_string(),
                     kind: TokenKind::Proposition,
