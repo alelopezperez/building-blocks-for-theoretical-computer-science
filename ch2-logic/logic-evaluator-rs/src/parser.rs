@@ -2,19 +2,19 @@ use std::iter::Peekable;
 
 use crate::lexer::{Token, TokenKind};
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub enum Expr {
     Binary(Box<Expr>, Token, Box<Expr>),
     Unary(Token, Box<Expr>),
     Grouping(Box<Expr>),
     Proposition(Token),
+    Implication(Box<Expr>, Token, Box<Expr>),
 }
 
 fn parse_prop<'a, I: Iterator<Item = &'a Token>>(
     tokens: &mut Peekable<I>,
 ) -> Result<Option<Expr>, ()> {
     if let Some(prop) = tokens.next() {
-        println!("{:?}", prop);
         if let TokenKind::Proposition = prop.kind {
             return Ok(Some(Expr::Proposition(prop.clone())));
         } else if let TokenKind::OParen = prop.kind {
@@ -50,6 +50,13 @@ fn parse_binary<'a, I: Iterator<Item = &'a Token>>(
         if TokenKind::And == op.kind || TokenKind::Or == op.kind {
             let rhs = parse_unary(tokens).unwrap().unwrap();
             expr = Ok(Some(Expr::Binary(
+                Box::new(expr.unwrap().unwrap()),
+                op.clone(),
+                Box::new(rhs),
+            )))
+        } else if TokenKind::Implication == op.kind {
+            let rhs = parse_unary(tokens).unwrap().unwrap();
+            expr = Ok(Some(Expr::Implication(
                 Box::new(expr.unwrap().unwrap()),
                 op.clone(),
                 Box::new(rhs),

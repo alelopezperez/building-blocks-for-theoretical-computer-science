@@ -33,11 +33,10 @@ impl<'a> Lexer<'a> {
     }
 }
 
-impl<'a> Iterator for Lexer<'a> {
+impl Iterator for Lexer<'_> {
     type Item = Token;
 
     fn next(&mut self) -> Option<Token> {
-        println!("{:?}", self.source);
         match self.source.next() {
             Some(c) => match c {
                 '-' => Some(Token {
@@ -56,6 +55,10 @@ impl<'a> Iterator for Lexer<'a> {
                 '(' => Some(Token {
                     lexeme: 'v'.to_string(),
                     kind: TokenKind::OParen,
+                }),
+                '>' => Some(Token {
+                    lexeme: '>'.to_string(),
+                    kind: TokenKind::Implication,
                 }),
 
                 c if c.is_ascii() => Some(Token {
