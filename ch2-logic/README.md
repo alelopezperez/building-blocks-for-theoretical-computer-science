@@ -5,12 +5,10 @@ The logic evaluator will generate truth table for a given expression, tautology 
 - Conjunction(and): `^`
 - Disjunction(or): `v`
 - Negation: `-`
-- Material Implication: `->`
-- Converse Implication: `<-`
-- Biconditional(if and only if): `<->`
+- Material Implication: `>`
 
 ## Grammar
 expr := binary
-binary := unary (["^"|"v"] unary)*
+binary := unary (["^"|"v"|">"] unary)*
 unary := "-" unary | proposition
 proposition := ("a".."u"|"w".."z")* 
