@@ -4,10 +4,6 @@ use logical_evluator::{
     parser::parse,
 };
 
-fn truth_table(values: Vec<String>) -> Vec<Vec<(String, bool)>> {
-    todo!()
-}
-
 fn main() {
     let source = "r^(a>b)";
     let l = Lexer::new(source).collect::<Vec<_>>();
@@ -15,7 +11,7 @@ fn main() {
 
     optimizer(&mut p);
 
-    let mut var = generate_env(&p);
+    let var = generate_env(&p);
     for prop in &var {
         print!("{}        ", prop);
     }

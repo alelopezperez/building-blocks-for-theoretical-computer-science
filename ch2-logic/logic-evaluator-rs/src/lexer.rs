@@ -21,14 +21,12 @@ pub struct Token {
 #[derive(Debug)]
 pub struct Lexer<'a> {
     source: Chars<'a>,
-    pos: usize,
 }
 
 impl<'a> Lexer<'a> {
     pub fn new(source: &'a str) -> Self {
         Self {
             source: source.chars(),
-            pos: 0,
         }
     }
 }
