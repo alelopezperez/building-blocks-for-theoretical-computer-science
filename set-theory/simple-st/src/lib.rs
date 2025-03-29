@@ -1,7 +1,4 @@
-use std::{
-    collections::{BTreeSet, HashSet},
-    fmt::Display,
-};
+use std::{collections::BTreeSet, fmt::Display};
 
 #[derive(Debug, Eq, Hash, PartialEq, PartialOrd, Ord, Clone)]
 pub enum Set {
@@ -13,6 +10,29 @@ pub enum Set {
 pub enum ElemOrSet {
     Symbol(char),
     Set(Set),
+}
+impl Set {
+    pub fn set_cardinality(&self) -> usize {
+        match self {
+            Set::EmptySet => 0,
+            Set::Set(btree_set) => btree_set.len(),
+        }
+    }
+
+    pub fn is_set_von_nueman_ordinal(&self) -> Option<usize> {
+        if let Set::EmptySet = self {
+            Some(0)
+        } else {
+            let mut count = 1;
+            while 1 <= self.set_cardinality() {
+                if natural_to_set(count) == *self {
+                    return Some(count);
+                }
+                count += 1;
+            }
+            None
+        }
+    }
 }
 
 impl Display for ElemOrSet {
@@ -49,9 +69,6 @@ pub fn succ(set: Set) -> Set {
             let mut cp_bt = btree_set.clone();
             cp_bt.insert(ElemOrSet::Set(Set::Set(btree_set)));
             Set::Set(cp_bt)
-        }
-        _ => {
-            panic!("You can only succ a Number")
         }
     }
 }
