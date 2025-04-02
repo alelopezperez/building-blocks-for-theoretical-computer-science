@@ -33,6 +33,22 @@ impl Set {
             None
         }
     }
+
+    pub fn big_union(&self) -> Set {
+        if let Set::Set(set) = &self {
+            let mut union_set = BTreeSet::new();
+            for v in set {
+                if let ElemOrSet::Set(Set::Set(seti)) = v {
+                    for u in seti {
+                        union_set.insert(u.clone());
+                    }
+                }
+            }
+            Set::Set(union_set)
+        } else {
+            Set::EmptySet
+        }
+    }
 }
 
 impl Display for ElemOrSet {
@@ -71,6 +87,10 @@ pub fn succ(set: Set) -> Set {
             Set::Set(cp_bt)
         }
     }
+}
+
+pub fn create_ordered_pair(fst: ElemOrSet, snd: ElemOrSet) -> Set {
+    todo!()
 }
 
 pub fn natural_to_set(num: usize) -> Set {
