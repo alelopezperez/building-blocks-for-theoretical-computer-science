@@ -12,6 +12,13 @@ pub enum ElemOrSet {
     Set(Set),
 }
 impl Set {
+    pub fn new(elements: Vec<ElemOrSet>) -> Self {
+        if elements.is_empty() {
+            Set::EmptySet
+        } else {
+            Set::Set(elements.into_iter().collect::<BTreeSet<_>>())
+        }
+    }
     pub fn set_cardinality(&self) -> usize {
         match self {
             Set::EmptySet => 0,
@@ -112,8 +119,11 @@ pub fn union_op(set_a: Set, set_b: Set) -> Set {
     }
 }
 
-fn create_set(values: Vec<char>) -> Set {
-    todo!()
+enum Token {
+    SmallLetter(char),
+    BigLetter(char),
+    OBracket,
+    CBracket,
+    Coma,
+    Equal,
 }
-
-pub fn ordered_pair() {}

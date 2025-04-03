@@ -1,0 +1,10 @@
+<EXPRESIONS> ::= <EXPR>*
+<EXPR> ::= <SET_DECL> | <SET_EXPR> 
+
+<SET_DECL> ::= <ID> "=" <SET_EXPR>
+<SET_EXPR> ::= "{" <LIST_OF_ELEM>* "}"
+
+<LIST_OF_ELEM> ::= <ELEM> | <ELEM> "," <LIST_OF_ELEM>
+<ELEM> ::= <ID> | "a".."z" | <SET_EXPR>
+
+<ID> ::= "A" .. "Z"
